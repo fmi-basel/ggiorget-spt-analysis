@@ -3,9 +3,9 @@
 /images/
 .snakemake/
 dag.svg
-NIPBL_sorosin_alpha.png
-NIPBL_sorosin_D.png
-tracks_w1.csv
+NIPBL_sororin_alpha.png
+NIPBL_sororin_D.png
+track_w1.csv
 tracks_NIPBL_multiprocess.csv
 __pycache__/
 /models/
