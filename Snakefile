@@ -9,51 +9,68 @@ import utils as ut
 import time
 from tqdm import tqdm
 
-FILENAME = ['20230605_Rad21-Halo_G6_3_FullseqTIRF-Cy5-mCherryGFPWithSMB']
+FILENAME = [ '20230526_Rad21-Halo_NIPBL_1C5_0h_1_FullseqTIRF-Cy5-mCherryGFPWithSMB',
+ '20230526_Rad21-Halo_NIPBL_1C5_0h_2_FullseqTIRF-Cy5-mCherryGFPWithSMB',
+ '20230526_Rad21-Halo_NIPBL_1C5_0h_3_FullseqTIRF-Cy5-mCherryGFPWithSMB',
+ '20230526_Rad21-Halo_NIPBL_1C5_6h_1_FullseqTIRF-Cy5-mCherryGFPWithSMB',
+ '20230529_Rad21-Halo_NIPBL_1C5_0h_1_FullseqTIRF-Cy5-mCherryGFPWithSMB',
+ '20230529_Rad21-Halo_NIPBL_1C5_6h_1_FullseqTIRF-Cy5-mCherryGFPWithSMB',
+ '20230529_Rad21-Halo_NIPBL_1C5_6h_2_FullseqTIRF-Cy5-mCherryGFPWithSMB',
+ '20230529_Rad21-Halo_Sororin_2D5_0h_1_FullseqTIRF-Cy5-mCherryGFPWithSMB',
+ '20230529_Rad21-Halo_Sororin_2D5_0h_2_FullseqTIRF-Cy5-mCherryGFPWithSMB',
+ '20230531_Rad21-Halo_NIPBL_1C5_6h_FullseqTIRF-Cy5-mCherryGFPWithSMB',
+ '20230531_Rad21-Halo_sororin_2D5_0h_1_FullseqTIRF-Cy5-mCherryGFPWithSMB',
+ '20230531_Rad21-Halo_sororin_2D5_0h_2_FullseqTIRF-Cy5-mCherryGFPWithSMB',
+ '20230602_Rad21-Halo_sororin_2D5_3h_1_FullseqTIRF-Cy5-mCherryGFPWithSMB',
+ '20230602_Rad21-Halo_sororin_2D5_3h_2_FullseqTIRF-Cy5-mCherryGFPWithSMB',
+ '20230602_Rad21-Halo_sororin_2D5_3h_3_FullseqTIRF-Cy5-mCherryGFPWithSMB',
+ '20230605_Rad21-Halo_G6_1_FullseqTIRF-Cy5-mCherryGFPWithSMB',
+ '20230605_Rad21-Halo_G6_2_FullseqTIRF-Cy5-mCherryGFPWithSMB',
+ '20230605_Rad21-Halo_G6_3_FullseqTIRF-Cy5-mCherryGFPWithSMB']
 
 CHANNEL = ['w1','w2']
 
-df_tracks_corrected = expand('/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking/tracks_corrected__{file_name}.csv',
+df_tracks_corrected = expand('/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/tracks_corrected__{file_name}.csv',
                             file_name = FILENAME)
 
 path_to_im = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/images/{file_name}_{channel}.tif'
 
 path_to_im_w2 = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/images/{file_name}_w2.tif'
 
-sd = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking/sd__{file_name}__{channel}.npy'
-df_detection = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking/detections__{file_name}__{channel}.csv'
+sd = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/sd__{file_name}__{channel}.npy'
+df_detection = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/detections__{file_name}__{channel}.csv'
 
-labels_w2 = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking/labels__{file_name}__w2.npy'
+labels_w2 = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/labels__{file_name}__w2.npy'
 
-df_tracks_in_cell = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking/tracks_in_cell__{file_name}__{channel}.csv'
-df_tracks = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking/tracks__{file_name}__{channel}.csv'
-df_track_corrected = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking/tracks_corrected__{file_name}.csv'
+df_tracks_in_cell = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/tracks_in_cell__{file_name}__{channel}.csv'
+df_tracks = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/tracks__{file_name}__{channel}.csv'
+df_track_corrected = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/tracks_corrected__{file_name}.csv'
 
-new_labels = expand('/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking/new_labels__{file_name}__w2.npy',
+new_labels = expand('/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/new_labels__{file_name}__w2.npy',
                     file_name = FILENAME)
 
-new_label = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking/new_labels__{file_name}__w2.npy'
+new_label = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/new_labels__{file_name}__w2.npy'
 
-df_tracks_in_cell_majority = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking/tracks_in_cell_majority__{file_name}__{channel}.csv'
+df_tracks_in_cell_majority = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/tracks_in_cell_majority__{file_name}__{channel}.csv'
 
-df_tracks_in_cells_majority = expand('/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking/tracks_in_cell_majority__{file_name}__{channel}.csv',
+df_tracks_in_cells_majority = expand('/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/tracks_in_cell_majority__{file_name}__{channel}.csv',
                                     file_name = FILENAME,
                                     channel = CHANNEL)
 # print(df_tracks_in_cells_majority)
-dfs_tracks_merged = expand('/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking/tracks_merged__{file_name}.csv',
+dfs_tracks_merged = expand('/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/tracks_merged__{file_name}.csv',
                             file_name = FILENAME)
 
-df_tracks_merged = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking/tracks_merged__{file_name}.csv'
+df_tracks_merged = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/tracks_merged__{file_name}.csv'
 
-df_msds_cor = expand('/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking/msd_corrected__{file_name}.csv',
+df_msds_cor = expand('/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/msd_corrected__{file_name}.csv',
                             file_name = FILENAME)
 
-df_msd_cor = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking/msd_corrected__{file_name}.csv'
+df_msd_cor = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/msd_corrected__{file_name}.csv'
 
-df_msds_uncor = expand('/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking/msd_uncorrected__{file_name}.csv',
+df_msds_uncor = expand('/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/msd_uncorrected__{file_name}.csv',
                             file_name = FILENAME)
 
-df_msd_uncor = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking/msd_uncorrected__{file_name}.csv'
+df_msd_uncor = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/msd_uncorrected__{file_name}.csv'
 
 rule all:
     input: 
