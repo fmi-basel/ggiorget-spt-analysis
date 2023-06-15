@@ -206,7 +206,8 @@ rule merge_channel:
     run: 
         df_list = []
         for i in tqdm(input):
-            if i.split('/')[7] == output[0].split('/')[7]:
+            if i.split('/')[8] == output[0].split('/')[8]: # check that the input and output are named the same to be able to merge the two channels together correctly 
+            # should be [7] because it corresponds to the name of the file (wildcard file_name) it's [8] because of the fact that there is no gaps
                 df = pd.read_csv(i)
                 if 'w1' in i:
                     df['channel'] = ['w1'] * len(df)
