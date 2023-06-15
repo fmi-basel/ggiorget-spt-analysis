@@ -706,7 +706,10 @@ def calculate_all_tamsd(df: pd.DataFrame, min_points: int = 10, min_length: int 
             df_tmp["track_id"] = track_id
             df_tmp["trStart"] = single_traj["frame"].min()
             results_lst.append(df_tmp)
-    results = pd.concat(results_lst)
+    if len(results_lst) > 0:
+        results = pd.concat(results_lst)
+    else:
+        results = pd.DataFrame(columns=["lags", "tamsd", "weight", "uniqueid", "track_id", "trStart"])
 
     return results
 
