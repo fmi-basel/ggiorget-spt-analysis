@@ -3,6 +3,7 @@
 /images/
 .snakemake/
 dag.svg
+dag.pdf
 NIPBL_sororin_alpha.png
 NIPBL_sororin_D.png
 track_w1.csv
@@ -12,3 +13,4 @@ __pycache__/
 .ipynb_checkpoints/
 20220907_Rad21-Halo_SPT_2D5_Sororin_noaux_40mW_2_w1_x_0_322_y_253_512.tif
 20220907_Rad21-Halo_SPT_2D5_Sororin_noaux_40mW_2_w2_x_0_322_y_253_512.tif
+plot_figures_thesis.ipynb
