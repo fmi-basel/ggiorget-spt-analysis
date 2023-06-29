@@ -146,7 +146,6 @@ def hmax_3D(raw_im: np.ndarray,frame: int,sd: float,n:int = 2,thresh: float = 0.
 im = imread(snakemake.input[0]) # type: ignore
 sd = np.load(snakemake.input[1]) # type: ignore
 threads = snakemake.threads
-print('Im here')
 df_list = []
 for frame in tqdm(range(np.shape(im)[0])):
     if 'w1' in snakemake.input[0]:
