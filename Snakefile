@@ -5,7 +5,7 @@ import numpy as np
 import os
 import seaborn as sns 
 import sys
-import utils as ut
+import src.utils as ut
 import time
 from tqdm import tqdm
 
@@ -106,20 +106,8 @@ rule hmax:
     threads: 15
     priority:
         0
-    run: 
-        im = imread(input[0])
-        sd = np.load(input[1])
-        df_list = []
-
-        for frame in tqdm(range(np.shape(im)[0])):
-            if 'w1' in input[0]:
-               df = ut.hmax_3D(im,frame=frame,sd=np.mean(sd),threads=threads)
-            else:
-                df = ut.hmax_3D(im,frame=frame,sd=np.mean(sd),n=4,thresh=0.20)
-            df_list.append(df)
-        
-        df_detection_w1 = pd.concat(df_list,axis=0)
-        df_detection_w1.to_csv(output[0],index=False)
+    script:
+        'src/hmax_snakemake.py'
 
 rule compute_labels:
     input: path_to_im_w2
