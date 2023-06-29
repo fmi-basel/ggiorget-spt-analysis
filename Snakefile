@@ -5,7 +5,7 @@ import numpy as np
 import os
 import seaborn as sns 
 import sys
-import utils as ut
+import src.utils as ut
 import time
 from tqdm import tqdm
 
@@ -30,47 +30,49 @@ FILENAME = [ '20230526_Rad21-Halo_NIPBL_1C5_0h_1_FullseqTIRF-Cy5-mCherryGFPWithS
 
 CHANNEL = ['w1','w2']
 
-df_tracks_corrected = expand('/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/tracks_corrected__{file_name}.csv',
+file_path = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/'
+
+df_tracks_corrected = expand(file_path+'{file_name}/tracks_corrected__{file_name}.csv',
                             file_name = FILENAME)
 
 path_to_im = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/images/{file_name}_{channel}.tif'
 
 path_to_im_w2 = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/images/{file_name}_w2.tif'
 
-sd = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/sd__{file_name}__{channel}.npy'
-df_detection = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/detections__{file_name}__{channel}.csv'
+sd = file_path+'{file_name}/sd__{file_name}__{channel}.npy'
+df_detection = file_path+'{file_name}/detections__{file_name}__{channel}.csv'
 
-labels_w2 = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/labels__{file_name}__w2.npy'
+labels_w2 = file_path+'{file_name}/labels__{file_name}__w2.npy'
 
-df_tracks_in_cell = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/tracks_in_cell__{file_name}__{channel}.csv'
-df_tracks = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/tracks__{file_name}__{channel}.csv'
-df_track_corrected = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/tracks_corrected__{file_name}.csv'
+df_tracks_in_cell = file_path+'{file_name}/tracks_in_cell__{file_name}__{channel}.csv'
+df_tracks = file_path+'{file_name}/tracks__{file_name}__{channel}.csv'
+df_track_corrected = file_path+'{file_name}/tracks_corrected__{file_name}.csv'
 
-new_labels = expand('/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/new_labels__{file_name}__w2.npy',
+new_labels = expand(file_path+'{file_name}/new_labels__{file_name}__w2.npy',
                     file_name = FILENAME)
 
-new_label = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/new_labels__{file_name}__w2.npy'
+new_label = file_path+'{file_name}/new_labels__{file_name}__w2.npy'
 
-df_tracks_in_cell_majority = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/tracks_in_cell_majority__{file_name}__{channel}.csv'
+df_tracks_in_cell_majority = file_path+'{file_name}/tracks_in_cell_majority__{file_name}__{channel}.csv'
 
-df_tracks_in_cells_majority = expand('/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/tracks_in_cell_majority__{file_name}__{channel}.csv',
+df_tracks_in_cells_majority = expand(file_path+'{file_name}/tracks_in_cell_majority__{file_name}__{channel}.csv',
                                     file_name = FILENAME,
                                     channel = CHANNEL)
 # print(df_tracks_in_cells_majority)
-dfs_tracks_merged = expand('/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/tracks_merged__{file_name}.csv',
+dfs_tracks_merged = expand(file_path+'{file_name}/tracks_merged__{file_name}.csv',
                             file_name = FILENAME)
 
-df_tracks_merged = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/tracks_merged__{file_name}.csv'
+df_tracks_merged = file_path+'{file_name}/tracks_merged__{file_name}.csv'
 
-df_msds_cor = expand('/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/msd_corrected__{file_name}.csv',
+df_msds_cor = expand(file_path+'{file_name}/msd_corrected__{file_name}.csv',
                             file_name = FILENAME)
 
-df_msd_cor = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/msd_corrected__{file_name}.csv'
+df_msd_cor = file_path+'{file_name}/msd_corrected__{file_name}.csv'
 
-df_msds_uncor = expand('/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/msd_uncorrected__{file_name}.csv',
+df_msds_uncor = expand(file_path+'{file_name}/msd_uncorrected__{file_name}.csv',
                             file_name = FILENAME)
 
-df_msd_uncor = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/{file_name}/msd_uncorrected__{file_name}.csv'
+df_msd_uncor = file_path+'{file_name}/msd_uncorrected__{file_name}.csv'
 
 rule all:
     input: 
@@ -104,20 +106,8 @@ rule hmax:
     threads: 15
     priority:
         0
-    run: 
-        im = imread(input[0])
-        sd = np.load(input[1])
-        df_list = []
-
-        for frame in tqdm(range(np.shape(im)[0])):
-            if 'w1' in input[0]:
-               df = ut.hmax_3D(im,frame=frame,sd=np.mean(sd),threads=threads)
-            else:
-                df = ut.hmax_3D(im,frame=frame,sd=np.mean(sd),n=4,thresh=0.20)
-            df_list.append(df)
-        
-        df_detection_w1 = pd.concat(df_list,axis=0)
-        df_detection_w1.to_csv(output[0],index=False)
+    script:
+        'src/hmax_snakemake.py'
 
 rule compute_labels:
     input: path_to_im_w2
@@ -132,7 +122,7 @@ rule compute_labels:
         else:
             labels = ut.predict_stardist(np.max(im,axis=1))
         #filter labels
-        # _,labels_filtered = ut.filter_cells(labels) # make a column that tells which cell is filtered or not
+        # _,labels_filtered = ut.filter_cells(labels) # make a column that tells which cell is filtered or not TO DO 
             labels_filtered = labels
             np.save(output[0],labels_filtered)
     
@@ -147,9 +137,6 @@ rule track:
         df = pd.read_csv(input[0])
         df_tracks = ut.track(df,track_cost_cutoff=3.0,gap_closing_cost_cutoff=7.0,gap_closing_max_frame_count=0)
         # Find the repeated track_id (matched points)
-        # df_tracks['z'] = df.z.values
-        # df_tracks['cell_id'] = df.label.values
-
         u, c = np.unique(df_tracks.track_id.values, return_counts=True)
         dup = u[c > 1]
         track_m = df_tracks[df_tracks.track_id.isin(dup)]
@@ -206,8 +193,8 @@ rule merge_channel:
     run: 
         df_list = []
         for i in tqdm(input):
-            if i.split('/')[8] == output[0].split('/')[8]: # check that the input and output are named the same to be able to merge the two channels together correctly 
-            # should be [7] because it corresponds to the name of the file (wildcard file_name) it's [8] because of the fact that there is no gaps
+            if i.split('/')[7] == output[0].split('/')[7]: # check that the input and output are named the same to be able to merge the two channels together correctly 
+            # should be [7] because it corresponds to the name of the file (wildcard file_name) it's [8] if you add another path before the file_name
                 df = pd.read_csv(i)
                 if 'w1' in i:
                     df['channel'] = ['w1'] * len(df)

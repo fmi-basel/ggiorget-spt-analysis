@@ -19,6 +19,10 @@ The workflow is written to be used with [snakemake](https://snakemake.readthedoc
 
 The steps and code to execute the workflow is contained in the Snakefile document.
 
+A simplified visual representation of the workflow is shown below:
+
+![pipeline](pipelineAsset_59.png)
+
 To run the pipeline cd in this folder and type:
 
 ```shell
