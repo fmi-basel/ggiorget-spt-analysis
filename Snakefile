@@ -30,7 +30,7 @@ FILENAME = [ '20230526_Rad21-Halo_NIPBL_1C5_0h_1_FullseqTIRF-Cy5-mCherryGFPWithS
 
 CHANNEL = ['w1','w2']
 
-file_path = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/test_tracking_without_gaps/'
+file_path = '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/results/'
 
 df_tracks_corrected = expand(file_path+'{file_name}/tracks_corrected__{file_name}.csv',
                             file_name = FILENAME)
@@ -122,7 +122,7 @@ rule compute_labels:
         else:
             labels = ut.predict_stardist(np.max(im,axis=1))
         #filter labels
-        # _,labels_filtered = ut.filter_cells(labels) # make a column that tells which cell is filtered or not
+        # _,labels_filtered = ut.filter_cells(labels) # make a column that tells which cell is filtered or not TO DO 
             labels_filtered = labels
             np.save(output[0],labels_filtered)
     
@@ -137,9 +137,6 @@ rule track:
         df = pd.read_csv(input[0])
         df_tracks = ut.track(df,track_cost_cutoff=3.0,gap_closing_cost_cutoff=7.0,gap_closing_max_frame_count=0)
         # Find the repeated track_id (matched points)
-        # df_tracks['z'] = df.z.values
-        # df_tracks['cell_id'] = df.label.values
-
         u, c = np.unique(df_tracks.track_id.values, return_counts=True)
         dup = u[c > 1]
         track_m = df_tracks[df_tracks.track_id.isin(dup)]
@@ -196,8 +193,8 @@ rule merge_channel:
     run: 
         df_list = []
         for i in tqdm(input):
-            if i.split('/')[8] == output[0].split('/')[8]: # check that the input and output are named the same to be able to merge the two channels together correctly 
-            # should be [7] because it corresponds to the name of the file (wildcard file_name) it's [8] because of the fact that there is no gaps
+            if i.split('/')[7] == output[0].split('/')[7]: # check that the input and output are named the same to be able to merge the two channels together correctly 
+            # should be [7] because it corresponds to the name of the file (wildcard file_name) it's [8] if you add another path before the file_name
                 df = pd.read_csv(i)
                 if 'w1' in i:
                     df['channel'] = ['w1'] * len(df)
