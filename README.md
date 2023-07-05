@@ -46,7 +46,7 @@ snakemake --forceall --dag | dot -Tpdf > dag.pdf
 ```
 # Source file
 
-The whole pipeline is written in python, all the function used by snakemake can be found in [utils](utils.py). All the packages necessary for the execution of utils are in the enivironment. In the notebook [test_workflow.ipynb](test_workflow.ipynb) you can run all the steps without using snakemake.
+The whole pipeline is written in python, all the function used by snakemake can be found in [utils](src/utils.py). All the packages necessary for the execution of utils are in the enivironment. In the notebook [test_workflow.ipynb](test_workflow.ipynb) you can run all the steps without using snakemake.
 
 # Notebooks
 
