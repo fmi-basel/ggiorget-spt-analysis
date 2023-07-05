@@ -15,9 +15,6 @@ __pycache__/
 20220907_Rad21-Halo_SPT_2D5_Sororin_noaux_40mW_2_w2_x_0_322_y_253_512.tif
 plot_figures_thesis.ipynb
 test_hmax.py
-<<<<<<< HEAD
 analyze_results.ipynb
 analyze_results_without_gaps.ipynb
 test_workflow.ipynb
-=======
->>>>>>> 17ce679e3cb49763519510e5be6d47b45f1613b7
