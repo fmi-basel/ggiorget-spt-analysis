@@ -883,8 +883,8 @@ def calculate_all_pairwise_tamsd(
 
     return results
 
-def filter_tracks(df):
-    n = df.groupby('track_id').size() > 23
+def filter_tracks(df, min_length = 23):
+    n = df.groupby('track_id').size() > min_length
     n = n[n == True]
     df_filtered = df[df.track_id.isin(n.index.values)]
     return df_filtered
