@@ -107,7 +107,7 @@ rule hmax:
     priority:
         0
     script:
-        'src/hmax_snakemake.py'
+        '/tungstenfs/scratch/ggiorget/nessim/cohesin_live_cell_analysis/src/hmax_snakemake.py'
 
 rule compute_labels:
     input: path_to_im_w2
