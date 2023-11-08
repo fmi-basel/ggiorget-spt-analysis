@@ -22,11 +22,11 @@ workflows/
 analyze_results_pia.ipynb
 src/hmax_snakemake_pia.py
 explore_results.ipynb
-src/segmentation_utils.py
-src/preprocessing_utils.py
-src/tracking_utils.py
+# src/segmentation_utils.py
+# src/preprocessing_utils.py
+# src/tracking_utils.py
 bound_fraction.ipynb
 bound_fraction/
-src/hmax_utils.py
-src/msd_utils.py
+# src/hmax_utils.py
+# src/msd_utils.py
 .DS_store
