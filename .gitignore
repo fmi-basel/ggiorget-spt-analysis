@@ -217,5 +217,4 @@ results/
 plots/
 bound_fraction/
 .snakemake/
-src/
 models/
