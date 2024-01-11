@@ -21,7 +21,7 @@ The steps and code to execute the workflow is contained in the Snakefile documen
 
 A simplified visual representation of the workflow is shown below:
 
-![pipeline](plots/pipelineAsset_59.png)
+![pipeline](pipeline_illustration.png)
 
 To run the pipeline cd in this folder and type:
 
